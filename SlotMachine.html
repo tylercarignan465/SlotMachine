@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot Machine</title>
+</head>
+<body>
+
+<form name=slots onsubmit="rollem(); return false;">
+    <table border=0 align="center" cellpadding=5 cellspacing=3 width=750 bgcolor="#a9a9a9">
+        <tr><th colspan=2> Slot Machine! </th></tr>
+        <tr><th align=right> Gold: </th>	<td align=left><input type=box size=5 name=gold READONLY value=25></td></tr>
+        <tr><th align=right> Your bet: </th>	<td align=left><input type=box size=5 name=bet></td></tr>
+        <tr><th><input type=submit value="Spin the slots"></th>
+            <th><input type=button value="I'm done for now" onclick="stopplay();"></th></tr>
+        <tr><th colspan=2> <input type=reset value="Start Over"> </th></tr>
+        <tr><td colspan=2><hr></td></tr>
+        <tr><td colspan =2>
+            <center>
+                <table cellspacing=5 cellpadding=2 border=0><tr>
+                    <td><img src=1.png height= "50" width ="60" name=slot1></td>
+                    <td><img src=2.png height= "50" width ="60" name=slot2></td>
+                    <td><img src=3.png height= "50" width ="60" name=slot3></td>
+                </tr></table>
+                <input type=text readonly size=33 name=banner>
+        <td> </tr>
+        <tr><td colspan=2><hr></td></tr>
+        <tr><td colspan=2><center>
+            <table width=100% border=0>
+                <tr><th colspan=3><fontsize>  <th></tr></fontsize>
+                <!-- First Slot-->
+                <tr><th> 3 of a kind </th>	<td>
+                    <img src=1.png height= "50" width ="60" >
+                    <img src=1.png height= "50" width ="60">
+                    <img src=1.png height= "50" width ="60">
+                </td><th> 10x your bet </th></tr>
+                <!-- Second Slot-->
+                <tr><th> 3 of a kind </th>	<td>
+                    <img src=2.png height= "50" width ="60">
+                    <img src=2.png height= "50" width ="60">
+                    <img src=2.png height= "50" width ="60">
+                </td><th> 10x your bet </th></tr>
+                <!-- Third Slot-->
+                <tr><th> 3 of a kind </th>	<td>
+                    <img src=3.png height= "50" width ="60">
+                    <img src=3.png height= "50" width ="60">
+                    <img src=3.png height= "50" width ="60">
+                </td><th> 10x your bet </th></tr>
+                <!-- Pair Slot-->
+                <tr><th> A pair </th>	<td>
+                    <img src=2.png height= "50" width ="60">
+                    <img src=2.png height= "50" width ="60">
+                    <img src=3.png height= "50" width ="60">
+                </td><th> 2x your bet </th></tr>
+                <!-- Or Slot-->
+                <tr><th> or </th>		<td>
+                    <img src=2.png height= "50" width ="60">
+                    <img src=2.png height= "50" width ="60">
+                    <img src=1.png height= "50" width ="60">
+                </td><th> 2x your bet </th></tr>
+                <!-- Or Slot-->
+                <tr><th> or </th>		<td>
+                    <img src=3.png height= "50" width ="60">
+                    <img src=3.png height= "50" width ="60">
+                    <img src=1.png height= "50" width ="60">
+                </td><th> 2x your bet </th></tr>
+                <!-- Or Slot-->
+                <tr><th> or </th>		<td>
+                    <img src=3.png height= "50" width ="60">
+                    <img src=3.png height= "50" width ="60">
+                    <img src=2.png height= "50" width ="60">
+                </td><th> 2x your bet </th></tr>
+                <!-- Or Slot-->
+                <tr><th> or </th>		<td>
+                    <img src=1.png height= "50" width ="60">
+                    <img src=1.png height= "50" width ="60">
+                    <img src=2.png height= "50" width ="60">
+                </td><th> 2x your bet </th></tr>
+                <!-- Or Slot-->
+                <tr><th> or </th>		<td>
+                    <img src=2.png height= "50" width ="60">
+                    <img src=2.png height= "50" width ="60">
+                    <img src=3.png height= "50" width ="60">
+                </td><th> 2x your bet </th></tr>
+                <!-- No Match  Slot-->
+                <tr><th> No match </th>	<td>
+                    <img src=1.png height= "50" width ="60">
+                    <img src=2.png height= "50" width ="60">
+                    <img src=3.png height= "50" width ="60">
+                </td><th> You lose </th></tr>
+            </table>
+        <td></tr>
+    </table>
+</form>
+
+<script>
+    slotitem = new Array('0','1','2','3');
+    document.slots.bet.focus();
+    startgold=30;
+    document.slots.gold.value=startgold;
+
+    function stopplay () {
+        if (document.slots.gold.value < startgold)
+        {alert("You lost "+ (startgold-document.slots.gold.value) +" gold pieces.   ");}
+        else 	{alert("You gained "+ (document.slots.gold.value-startgold) +" gold pieces.   ");}
+    }
+    function rollem () {
+        if (document.slots.bet.value<1 || document.slots.bet.value == "") {alert("You cannot bet less that 1.   "); return;}
+        if (Math.floor(document.slots.gold.value) < Math.floor(document.slots.bet.value)) {alert("Your bet "+document.slots.bet.value+
+                " is larger than your remaining gold "+document.slots.gold.value+".  "); return;}
+        if (document.slots.bet.value>1) {document.slots.banner.value="Bet is "+document.slots.bet.value+" gold pieces";}
+        else {document.slots.banner.value="Bet is "+document.slots.bet.value+" gold piece";}
+        counter=0;
+        spinem();
+    }
+    function spinem() {
+        turns1=10+Math.floor((Math.random() * 3)+1) ;
+        for (a=0;a<turns1;a++)
+        {document.slots.slot1.src=""+slotitem[a % 9]+".png"; }
+        turns2=10+Math.floor((Math.random() * 3)+1);
+        for (b=0;b<turns2;b++)
+        {document.slots.slot2.src=""+slotitem[b % 9]+".png"; }
+        turns3=10+Math.floor((Math.random() * 3)+1);
+        for (c=0;c<turns3;c++)
+        {document.slots.slot3.src=""+slotitem[c % 9]+".png"; }
+        counter++;
+        if (counter<25) {setTimeout("spinem(counter);",50);} else {checkmatch();}
+    }
+    function checkmatch()	{
+        if ((document.slots.slot1.src == document.slots.slot2.src) && (document.slots.slot1.src == document.slots.slot3.src))
+        {document.slots.banner.value="3 of a kind - You won "+Math.floor(document.slots.bet.value*10)+" gold pieces";
+            document.slots.gold.value=Math.floor(document.slots.gold.value)+Math.floor(document.slots.bet.value*10); }
+        else if ((document.slots.slot1.src == document.slots.slot2.src) ||
+                (document.slots.slot1.src == document.slots.slot3.src) ||
+                (document.slots.slot2.src == document.slots.slot3.src))
+        {document.slots.banner.value="A pair - You won "+Math.floor(document.slots.bet.value*2)+" gold pieces";
+            document.slots.gold.value = Math.floor(document.slots.bet.value*2) + Math.floor(document.slots.gold.value);}
+        else {document.slots.gold.value=document.slots.gold.value-document.slots.bet.value;
+            document.slots.banner.value="No match - You lost "+document.slots.bet.value+" gold pieces";}
+    }
+</script>
+</body>
